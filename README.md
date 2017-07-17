@@ -9,7 +9,7 @@ A simple elevator written by jquery.
 
 
 
-
+![电梯效果副本.gif](http://upload-images.jianshu.io/upload_images/1062695-6dec0bc0ffcdc86c.gif?imageMogr2/auto-orient/strip)
 
 
 
