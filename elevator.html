@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>Elevator</title>
+    <script language="javascript" src="jquery.js"></script>
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+            background-color: #f5f5f9;
+            overflow:hidden
+        }
+        .content{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+        .leftSide{
+            float: left;
+            width: 30%;
+            height: 100%;
+            background-color: transparent;
+            overflow: auto;
+        }
+        .rightSide{
+            float: left;
+            width: 70%;
+            height: 100%;
+            background-color: #f5f5f9;
+            overflow: hidden;
+        }
+
+        .leftSide span{
+            display: block;
+            width: 100%;
+            height: 40px;
+            background-color: white;
+            border-bottom: 1px solid transparent;
+        }
+        .leftSide span p{
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            height: 100%;
+            background-color: transparent;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+            color:black;
+            border-bottom: 1px solid lightgrey;
+        }
+        .leftSide .active{
+            border-left: 3px solid red;
+            background-color: #f5f5f9;
+        }
+
+        .rightSide .rightContent{
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f9;
+            overflow: auto;
+        }
+        .line{
+            width: 80%;
+            height: 50px;
+            background-color: lightgrey;
+            margin: 0 auto;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 50px;
+        }
+        /*.rightContent::-webkit-scrollbar {display:none}*/
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <div class="leftSide" id="leftSide">
+
+    </div>
+    <div class="rightSide">
+
+    </div>
+</div>
+</body>
+</html>
+<script>
+    //分类数组
+    var list = ['推荐分类','京东超市','手机数码','国际名牌','奢侈品','电脑办公','家用电器','食品生鲜','酒水饮料','母婴童装','玩具乐器','汽车用品','厨具','男装','女装','男鞋','女鞋','箱包手袋','钟表珠宝'];
+
+    //设置左边滑动
+    var html = '';
+    for(var i = 0;i < list.length;i++){
+        if(i == 0){
+            html = '<span class="active" onclick="setActive('+i+')">'+'<p>'+list[i]+'</p>'+'</span>';
+        }else{
+            html = '<span onclick="setActive('+i+')">'+'<p>'+list[i]+'</p>'+'</span>';
+        }
+        rightContent = '<div class="rightContent"></div>';
+        $("#leftSide").append(html);
+        $(".rightSide").append(rightContent);
+
+    }
+
+    //动态添加假数据div
+    var fadeDataDiv = '';
+    for(var i = 0; i < list.length;i++){
+        fadeDataDiv = '<div class="line">'+'商品数据'+i+'</div>';
+        $(".rightContent").append(fadeDataDiv);
+    }
+
+    //获取距离顶部距离的数组
+    var topData = [];
+    for(var j=0;j<$('.rightContent').length;j++){
+        topData.push($('.rightContent').eq(j).offset().top);
+    }
+
+    //设置右边显示区域
+    function setActive(i){
+        $(".leftSide span").removeClass('active');
+        $(".leftSide span").eq(i).addClass('active');
+        $('.rightSide').animate({scrollTop:topData[i]+'px'});
+    }
+
+
+</script>
